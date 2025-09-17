@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투두리스트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:,">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="할 일을 리스트와 달력으로 관리하는 투두리스트">
+</head>
+<body>
+    <header class="app-header">
+        <h1>투두리스트</h1>
+    </header>
+    <main class="container">
+        <section class="add-todo card" aria-labelledby="add-todo-title">
+            <h2 id="add-todo-title" class="sr-only">할 일 추가</h2>
+            <form id="todo-form" autocomplete="off">
+                <label class="sr-only" for="todo-title">할 일</label>
+                <input id="todo-title" type="text" placeholder="할 일을 입력하세요" required>
+                <label class="sr-only" for="todo-date">날짜</label>
+                <input id="todo-date" type="date" required>
+                <button type="submit" class="btn primary" id="add-btn">추가</button>
+                <button type="button" class="btn" id="clear-btn" title="입력 초기화">지우기</button>
+            </form>
+        </section>
+
+        <nav class="tabs" role="tablist" aria-label="보기 전환">
+            <button class="tab active" role="tab" aria-selected="true" aria-controls="list-view" id="tab-list">리스트</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="calendar-view" id="tab-calendar">달력</button>
+        </nav>
+
+        <section id="list-view" role="tabpanel" aria-labelledby="tab-list" class="card view active">
+            <div class="list-toolbar">
+                <div class="filters">
+                    <select id="filter-status" title="상태 필터">
+                        <option value="all">전체</option>
+                        <option value="open">진행중</option>
+                        <option value="done">완료</option>
+                    </select>
+                </div>
+                <div class="info" id="list-count"></div>
+            </div>
+            <ul id="todo-list" class="todo-list" aria-live="polite"></ul>
+        </section>
+
+        <section id="calendar-view" role="tabpanel" aria-labelledby="tab-calendar" class="card view">
+            <div class="calendar-header">
+                <button class="icon-btn" id="prev-month" aria-label="이전 달">◀</button>
+                <div class="month-title" id="month-title"></div>
+                <button class="icon-btn" id="next-month" aria-label="다음 달">▶</button>
+            </div>
+            <div class="calendar" id="calendar">
+                <!-- 동적으로 렌더링 -->
+            </div>
+            <div class="legend">
+                <span class="badge open">진행중</span>
+                <span class="badge done">완료</span>
+            </div>
+        </section>
+    </main>
+
+    <template id="todo-item-template">
+        <li class="todo-item">
+            <label class="checkbox">
+                <input type="checkbox" class="toggle">
+                <span class="checkmark"></span>
+            </label>
+            <div class="content">
+                <div class="title"></div>
+                <div class="meta"></div>
+            </div>
+            <div class="actions">
+                <button class="btn small" data-action="edit">수정</button>
+                <button class="btn small danger" data-action="delete">삭제</button>
+            </div>
+        </li>
+    </template>
+
+    <script src="script.js" defer></script>
+    <div id="sr-live" class="sr-only" aria-live="polite"></div>
+</body>
+</html>
+
